@@ -1,6 +1,6 @@
 ---
 title: Device
-description: Get device information.
+description: This is a forked version of apache/cordova-plugin-device. I have modified the code and added a mac_address property. I have tested this on Marshmallow and Nougat (its working fine!) :)
 ---
 <!--
 # license: Licensed to the Apache Software Foundation (ASF) under one
@@ -47,6 +47,7 @@ function onDeviceReady() {
 - device.model
 - device.platform
 - device.uuid
+- device.mac_address
 - device.version
 - device.manufacturer
 - device.isVirtual
@@ -123,6 +124,15 @@ var string = device.platform;
 //   - "Tizen"
 //   - "Mac OS X"
 var devicePlatform = device.platform;
+```
+
+
+## device.mac_address
+
+Get the device's MAC Address ([MAC Address](https://en.wikipedia.org/wiki/MAC_address)).
+
+```js
+var string = device.mac_address;
 ```
 
 ## device.uuid
