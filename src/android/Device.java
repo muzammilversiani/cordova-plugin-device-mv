@@ -28,13 +28,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.provider.Settings;
+
+import android.content.Context;
+import android.net.wifi.WifiManager;
 
 public class Device extends CordovaPlugin {
     public static final String TAG = "Device";
 
     public static String platform;                            // Device OS
     public static String uuid;                                // Device UUID
+    public static String macAddress;                          // Device MacAddress
 
     private static final String ANDROID_PLATFORM = "Android";
     private static final String AMAZON_PLATFORM = "amazon-fireos";
@@ -56,6 +66,7 @@ public class Device extends CordovaPlugin {
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         Device.uuid = getUuid();
+        Device.macAddress = getMacAddress();
     }
 
     /**
@@ -70,6 +81,7 @@ public class Device extends CordovaPlugin {
         if ("getDeviceInfo".equals(action)) {
             JSONObject r = new JSONObject();
             r.put("uuid", Device.uuid);
+            r.put("mac_address", Device.macAddress);
             r.put("version", this.getOSVersion());
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
@@ -101,6 +113,44 @@ public class Device extends CordovaPlugin {
             platform = ANDROID_PLATFORM;
         }
         return platform;
+    }
+
+    /**
+     * Get the device's Mac Address.
+     *
+     * @return
+     */
+    public String getMacAddress() {
+        // String macAddress = null;
+        // WifiManager wm = (WifiManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        // macAddress = wm.getConnectionInfo().getMacAddress();
+        //  if (macAddress == null || macAddress.length() == 0) {
+        //     macAddress = "00:00:00:00:00:00";
+        // }
+        // return macAddress;
+        try {
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+ 
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+ 
+                StringBuilder res1 = new StringBuilder();
+                for (byte b : macBytes) {
+                    res1.append(Integer.toHexString(b & 0xFF) + ":");
+                }
+ 
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception ex) {
+        }
+        return "02:00:00:00:00:00";
     }
 
     /**

@@ -44,6 +44,7 @@ function Device () {
     this.manufacturer = null;
     this.isVirtual = null;
     this.serial = null;
+    this.mac_address = null;
 
     var me = this;
 
@@ -56,6 +57,7 @@ function Device () {
             me.platform = info.platform;
             me.version = info.version;
             me.uuid = info.uuid;
+            me.mac_address = info.mac_address ? info.mac_address : '';
             me.cordova = buildLabel;
             me.model = info.model;
             me.isVirtual = info.isVirtual;
