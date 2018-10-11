@@ -22,7 +22,7 @@
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="cordova-plugin-device-mv"
-    version="2.0.3-dev">
+    version="2.0.3">
     <name>Device</name>
     <description>Cordova Device Plugin with MAC Address and IMEI Number</description>
     <license>Apache 2.0</license>
