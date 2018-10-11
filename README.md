@@ -1,6 +1,6 @@
 ---
 title: Device
-description: This is a forked version of apache/cordova-plugin-device. I have modified the code and added a mac_address property. I have tested this on Marshmallow and Nougat (its working fine!) :)
+description: This is a forked version of apache/cordova-plugin-device. I have modified the code and added a mac_address and imei properties. I have tested this on Marshmallow and Nougat (its working fine!) :)
 ---
 <!--
 # license: Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,7 @@ description: This is a forked version of apache/cordova-plugin-device. I have mo
 |:-:|:-:|
 |[![Build status](https://ci.appveyor.com/api/projects/status/github/apache/cordova-plugin-device?branch=master)](https://ci.appveyor.com/project/ApacheSoftwareFoundation/cordova-plugin-device)|[![Build Status](https://travis-ci.org/apache/cordova-plugin-device.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-device)|
 
-# cordova-plugin-device
+# cordova-plugin-device-mv
 
 This plugin defines a global `device` object, which describes the device's hardware and software.
 Although the object is in the global scope, it is not available until after the `deviceready` event.
@@ -39,7 +39,7 @@ function onDeviceReady() {
 
 ## Installation
 
-    cordova plugin add cordova-plugin-device
+    cordova plugin add cordova-plugin-device-mv
 
 ## Properties
 
@@ -52,6 +52,7 @@ function onDeviceReady() {
 - device.manufacturer
 - device.isVirtual
 - device.serial
+- device.imei
 
 ## device.cordova
 
@@ -134,6 +135,23 @@ Get the device's MAC Address ([MAC Address](https://en.wikipedia.org/wiki/MAC_ad
 ```js
 var string = device.mac_address;
 ```
+### Supported Platforms
+
+- Android
+
+
+
+## device.imei
+
+Get the device's International Mobile Station Equipment Identity (IMEI).
+
+```js
+var string = device.imei;
+```
+### Supported Platforms
+
+- Android
+
 
 ## device.uuid
 

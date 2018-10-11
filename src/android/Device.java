@@ -20,6 +20,7 @@ package org.apache.cordova.device;
 
 import java.util.TimeZone;
 
+import android.telephony.TelephonyManager;
 import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -45,6 +46,7 @@ public class Device extends CordovaPlugin {
     public static String platform;                            // Device OS
     public static String uuid;                                // Device UUID
     public static String macAddress;                          // Device MacAddress
+    public static String imei; // Device IMEI
 
     private static final String ANDROID_PLATFORM = "Android";
     private static final String AMAZON_PLATFORM = "amazon-fireos";
@@ -67,6 +69,7 @@ public class Device extends CordovaPlugin {
         super.initialize(cordova, webView);
         Device.uuid = getUuid();
         Device.macAddress = getMacAddress();
+        Device.imei = getImei();
     }
 
     /**
@@ -82,11 +85,12 @@ public class Device extends CordovaPlugin {
             JSONObject r = new JSONObject();
             r.put("uuid", Device.uuid);
             r.put("mac_address", Device.macAddress);
+            r.put("imei", Device.imei);
             r.put("version", this.getOSVersion());
             r.put("platform", this.getPlatform());
             r.put("model", this.getModel());
             r.put("manufacturer", this.getManufacturer());
-	        r.put("isVirtual", this.isVirtual());
+            r.put("isVirtual", this.isVirtual());
             r.put("serial", this.getSerialNumber());
             callbackContext.success(r);
         }
@@ -163,6 +167,19 @@ public class Device extends CordovaPlugin {
         return uuid;
     }
 
+    /**
+     * Get the device's International Mobile Station Equipment Identity (IMEI).
+     *
+     * @param context The context of the main Activity.
+     * @return
+     */
+    public String getImei() {
+        Context context = this.cordova.getActivity().getApplicationContext();
+        final TelephonyManager mTelephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String imei = mTelephony.getDeviceId();
+        return imei;
+    }
+
     public String getModel() {
         String model = android.os.Build.MODEL;
         return model;
@@ -217,8 +234,8 @@ public class Device extends CordovaPlugin {
     }
 
     public boolean isVirtual() {
-	return android.os.Build.FINGERPRINT.contains("generic") ||
-	    android.os.Build.PRODUCT.contains("sdk");
+    return android.os.Build.FINGERPRINT.contains("generic") ||
+        android.os.Build.PRODUCT.contains("sdk");
     }
 
 }

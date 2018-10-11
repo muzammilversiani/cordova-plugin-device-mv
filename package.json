@@ -1,10 +1,10 @@
 {
-  "name": "cordova-plugin-device",
+  "name": "cordova-plugin-device-mv",
   "version": "2.0.3-dev",
-  "description": "Cordova Device Plugin",
+  "description": "Cordova Device Plugin with MAC and IMEI",
   "types": "./types/index.d.ts",
   "cordova": {
-    "id": "cordova-plugin-device",
+    "id": "cordova-plugin-device-mv",
     "platforms": [
       "android",
       "ios",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apache/cordova-plugin-device"
+    "url": "https://github.com/muzammilversiani/cordova-plugin-device"
   },
   "bugs": {
     "url": "https://issues.apache.org/jira/browse/CB"

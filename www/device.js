@@ -45,6 +45,7 @@ function Device () {
     this.isVirtual = null;
     this.serial = null;
     this.mac_address = null;
+    this.imei = null;
 
     var me = this;
 
@@ -61,6 +62,7 @@ function Device () {
             me.cordova = buildLabel;
             me.model = info.model;
             me.isVirtual = info.isVirtual;
+            me.imei = info.imei;
             me.manufacturer = info.manufacturer || 'unknown';
             me.serial = info.serial || 'unknown';
             channel.onCordovaInfoReady.fire();
