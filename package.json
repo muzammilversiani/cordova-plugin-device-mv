@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-device-mv",
-  "version": "2.0.3-dev",
+  "version": "2.0.3",
   "description": "Cordova Device Plugin with MAC and IMEI",
   "types": "./types/index.d.ts",
   "cordova": {
